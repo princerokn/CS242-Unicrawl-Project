@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniCrawl</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="stylesheet.css">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/BrowserFS/2.0.0/browserfs.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light" style="margin-top: -20px;">
+    <a class="navbar-brand" href="#">
+        <img width="120px" src="whitelogo.png" >
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <img  src="profileuserdp.png">
+        </form>
+    </div>
+</nav>
+
+<!--<form action="/home" method="get"> fill the form-->
+<!--    <input type="text" name="query" placeholder="query here">-->
+<!--    <input type="submit" value="navigate 2 home" id="submitbutton">-->
+<!--</form>-->
+
+
+<div class="text-center">
+    <div class="container" style="width:450px; margin-top: 30px; ">
+        <img src="whitelogo.png" width="100%" >
+    </div>
+</div>
+<div class="container">
+    <div class="d-flex justify-content-center h-100">
+    <form  action="/home" method="get"    class="searchbar" style="margin-top:-90px">
+
+<!--        <form action="/home" method="get"> fill the form-->
+<!--            <input type="text" name="query" placeholder="query here">-->
+<!--            <input type="submit" value="navigate 2 home" id="submitbutton">-->
+<!--        </form>-->
+
+        <input required class="search_input" type="text" name="query" id="search_bar" placeholder="Click the search button post speaking or writing...."  >
+<!--        <input type="submit" class="search_icon" ><i class="fa fa-search"></i></input>-->
+        <a href="#" class="mic_icon" onclick="runSpeechRecognition()"><i class="fa fa-microphone "></i></a>
+<!--        <input type="submit" value="navigate 2 home" id="submitbutton1">-->
+        <input type="submit" class="search_icon" value=" " id="searchbutton" style="background-image:url('search20.png');
+    background-repeat:no-repeat;
+   background-position:center;" >
+<!--              <i class="fa fa-search"></i>-->
+<!--        <span class="fa fa-search"></span>-->
+        </input>
+    </form>
+</div>
+
+
+<h5> 
+Please put your query here and the query will trigger results in both hadoop and lucene. Please be patient since hadoop results generally take some time and since both the results are integrated in one page for convenience, it might take a while to display results from both hadoop and lucene. Thank you for your support!
+</h5>
+
+
+</div>
+<span id="action" style="display: none;"></span>
+<div id="SearchResultOutput" class="hide mt-5">
+    <!-- for total elements found -->
+  
+
+<div id="output" class="hide text-center" style="height:fit-content"></div>
+<script>
+    /* JS comes here */
+
+    var transcript;
+
+    function runSpeechRecognition() {
+        SearchResultOutput.classList.add("hide");
+        SearchResultOutput1.classList.add("hide");
+        var output = document.getElementById("output");
+        var action = document.getElementById("action");
+        var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+        var recognition = new SpeechRecognition();
+        output.classList.add("hide");
+        recognition.onstart = function() {
+            var listening="listening, please speak...";
+            document.getElementById("search_bar").value=null;
+            document.getElementById("search_bar").setAttribute("placeholder", listening);
+
+        };
+        recognition.onspeechend = function() {
+            var stopped="stopped listening, hope you are done...";
+            recognition.stop();
+        }
+        recognition.onresult = function(event)
+        {
+            transcript = event.results[0][0].transcript;
+            var confidence = event.results[0][0].confidence;
+            document.getElementById("search_bar").value= transcript;
+            var formData = JSON.stringify(transcript);
+            alert(formData);
+
+            var xhr = new XMLHttpRequest();
+
+            var url = "http://127.0.0.1:5500/index.html";
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var json = JSON.parse(xhr.responseText);
+                    console.log(json.email + ", " + json.password);
+                }
+            };
+            var data = JSON.stringify({"email": "hey@mail.com", "password": "101010"});
+            hr.send(data);
+
+
+
+            output.innerHTML = "<b> Speech Text:</b> " + transcript + "<br/> <b>Speech Confidence:</b> " + confidence*100+"%";
+            output.classList.remove("hide");
+            outputvalue=document.getElementById("search_bar").value;
+
+    
+        };
+        recognition.start();
+    }
+    function resultpostclickingsearch(){
+
+        output.classList.add("hide");
+      
+        // SearchResultOutput.classList.remove("hide");
+    }
+</script>
+
+</body>
+</html>

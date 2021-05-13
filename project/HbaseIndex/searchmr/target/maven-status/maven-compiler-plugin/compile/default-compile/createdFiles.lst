@@ -1,0 +1,11 @@
+edu/ucr/abhi/index/IndexerR.class
+edu/ucr/abhi/pojos/Posting$1.class
+edu/ucr/abhi/pojos/Output.class
+edu/ucr/abhi/index/Indexer.class
+edu/ucr/abhi/pojos/Posting.class
+edu/ucr/abhi/search/RankR.class
+edu/ucr/abhi/search/Rank.class
+edu/ucr/abhi/search/RankM.class
+edu/ucr/abhi/index/IndexerM.class
+edu/ucr/abhi/search/Query.class
+edu/ucr/abhi/constants/Search.class

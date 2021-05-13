@@ -1,0 +1,10 @@
+/home/hadoopusr/project/HbaseIndex/searchmr/src/main/java/edu/ucr/abhi/pojos/Posting.java
+/home/hadoopusr/project/HbaseIndex/searchmr/src/main/java/edu/ucr/abhi/search/Query.java
+/home/hadoopusr/project/HbaseIndex/searchmr/src/main/java/edu/ucr/abhi/search/RankR.java
+/home/hadoopusr/project/HbaseIndex/searchmr/src/main/java/edu/ucr/abhi/index/IndexerR.java
+/home/hadoopusr/project/HbaseIndex/searchmr/src/main/java/edu/ucr/abhi/pojos/Output.java
+/home/hadoopusr/project/HbaseIndex/searchmr/src/main/java/edu/ucr/abhi/search/RankM.java
+/home/hadoopusr/project/HbaseIndex/searchmr/src/main/java/edu/ucr/abhi/index/IndexerM.java
+/home/hadoopusr/project/HbaseIndex/searchmr/src/main/java/edu/ucr/abhi/search/Rank.java
+/home/hadoopusr/project/HbaseIndex/searchmr/src/main/java/edu/ucr/abhi/index/Indexer.java
+/home/hadoopusr/project/HbaseIndex/searchmr/src/main/java/edu/ucr/abhi/constants/Search.java
